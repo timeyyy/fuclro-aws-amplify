@@ -1,0 +1,20 @@
+{
+    "projectName": "amplifytest",
+    "projectPath": "/home/tim/programming/repo/learning/fulcro-broken/amplifytest",
+    "defaultEditor": "none",
+    "frontendHandler": {
+        "javascript": "/home/tim/.nvm/versions/node/v8.10.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-frontend-javascript"
+    },
+    "javascript": {
+        "framework": "react",
+        "config": {
+            "SourceDir": "src/main",
+            "DistributionDir": "build",
+            "BuildCommand": "npm run-script build",
+            "StartCommand": "npm run-script start"
+        }
+    },
+    "providers": {
+        "awscloudformation": "/home/tim/.nvm/versions/node/v8.10.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-provider-awscloudformation"
+    }
+}
