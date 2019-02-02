@@ -2,12 +2,18 @@
   (:require [fulcro.client :as fc]
             [amplifytest.ui.root :as root]
             [fulcro.client.network :as net]
-            [fulcro.client.data-fetch :as df]))
+            [fulcro.client.data-fetch :as df]
+            ["aws-amplify" :refer [Auth]]
+            ["aws-amplify-react" :refer [withAuthenticator AuthenticatorWrapper Authenticator SignUp SignIn]]
+            ["/aws-exports.js" :default aws-exports]))
 
 (defonce SPA (atom nil))
 
+(def secure-root (withAuthenticator root/Root))
+
 (defn mount []
-  (reset! SPA (fc/mount @SPA root/Root "app")))
+  (.configure Auth (clj->js aws-exports))
+  (reset! SPA (fc/mount @SPA secure-root "app")))
 
 (defn start []
   (mount))
