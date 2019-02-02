@@ -2,14 +2,37 @@
   (:require [fulcro.client :as fc]
             [amplifytest.ui.root :as root]
             [fulcro.client.network :as net]
+            [fulcro.client.localized-dom :as dom]
+            [fulcro.client.dom :as c-dom]
             [fulcro.client.data-fetch :as df]
+            [fulcro.client.primitives :as prim :refer [defsc]]
+            [fulcro.util :refer [force-children]]
             ["aws-amplify" :refer [Auth]]
             ["aws-amplify-react" :refer [withAuthenticator AuthenticatorWrapper Authenticator SignUp SignIn]]
             ["/aws-exports.js" :default aws-exports]))
 
+(defn component-factory-simple
+  "Make a factory to build a React instance from a React class."
+  [component]
+  (fn
+    ([] (dom/create-element component))
+    ([props] (dom/create-element component (clj->js props)))
+    ([props & children] (apply dom/create-element component (clj->js props) (force-children children)))))
+
+
+(def ui-auth (component-factory-simple Authenticator))
+; (def ui-auth (component-factory-simple Authenticator))
+(def ui-root (prim/factory root/Root))
+
+(defsc AppWithAuth
+  [this props]
+  (ui-auth #js {}
+           (ui-root)))
+
 (defonce SPA (atom nil))
 
-(def secure-root (withAuthenticator root/Root))
+(def secure-root AppWithAuth)
+; (def secure-root (withAuthenticator root/Root))
 
 (defn mount []
   (.configure Auth (clj->js aws-exports))
