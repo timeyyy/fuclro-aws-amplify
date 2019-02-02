@@ -4,6 +4,8 @@
   "description": "",
   "private": true,
   "dependencies": {
+    "aws-amplify": "1.1.19",
+    "aws-amplify-react": "2.3.0",
     "highlight.js": "^9.13.1",
     "react-grid-layout": "^0.16.6",
     "react-icons": "^2.2.7",
